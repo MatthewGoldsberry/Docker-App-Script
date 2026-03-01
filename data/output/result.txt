@@ -1,0 +1,12 @@
+File Parsing Results:
+
+File: IF.txt
+	Word Count: 287
+	Top 3 Words: you (18), and (16), if (14)
+
+File: AlwaysRememberUsThisWay.txt
+	Word Count: 223
+	Top 3 Words: i (15), the (13), not (9)
+
+Total Word Count: 510
+Machine IP Address: 192.168.4.151
