@@ -5,7 +5,10 @@ WORKDIR /home
 
 # copy necessary files into the image
 COPY data/ /home/data
-COPY script.py .
+COPY script.py /home/
+
+# prevent generation of .pyc files
+ENV PYTHONDONTWRITEBYTECODE=1
 
 # automatically execute the python script 
 CMD ["python", "-m", "script"]
