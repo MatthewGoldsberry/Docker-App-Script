@@ -61,13 +61,11 @@ def convert_contractions(line: str) -> str:
     return line  # noqa: RET504
 
 
-def find_three_most_frequent_words(file: TextIOWrapper, *, handle_contractions: bool = False) -> list[tuple[str, int]]:
+def find_three_most_frequent_words(file: TextIOWrapper) -> list[tuple[str, int]]:
     """Count the frequency of words in the file obj, returning a list of the top 3 most frequency and their frequency.
 
     Args:
         file (TextIOWrapper): File object to calculate frequency of
-        handle_contractions (bool, optional): Whether to expand contractions before computing the frequency or not.
-            Defaults to False.
 
     Returns:
         list[tuple[str, int]]: Top 3 most occurring words return in tuple pairs (word, count)
@@ -75,7 +73,7 @@ def find_three_most_frequent_words(file: TextIOWrapper, *, handle_contractions: 
     file.seek(0)  # reset location in file
     individual_word_counts = Counter()
     for line in file:
-        text_line = convert_contractions(line) if handle_contractions else line
+        text_line = convert_contractions(line)
         cleaned_words = re.sub(r"[^\w\s]", "", text_line).lower().split()
         individual_word_counts.update(cleaned_words)
     top3: list[tuple[str, int]] = individual_word_counts.most_common(3)
@@ -181,7 +179,7 @@ def main() -> None:
 
         # identify top 3 most frequent words in each file
         if_txt_top3 = find_three_most_frequent_words(if_txt)
-        a_txt_top3 = find_three_most_frequent_words(a_txt, handle_contractions=True)
+        a_txt_top3 = find_three_most_frequent_words(a_txt)
 
         # determine the ip address of the machine running the container
         ip = get_ip_address()
