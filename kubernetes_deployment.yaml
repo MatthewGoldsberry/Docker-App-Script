@@ -1,0 +1,22 @@
+# to apply: kubectl apply -f kubernetes_deployment.yaml
+# to see the pods: kubectl get pods
+# this utilizes Job because the container runs a script then exits (which is the behavior of a job and not a deployment)
+apiVersion: batch/v1
+kind: Job
+metadata: 
+  name: goldsbme-job
+spec: 
+  parallelism: 3
+  completions: 3
+  template:
+    metadata:
+      labels:
+        app: goldsbme
+    spec:
+      containers:
+      - name: goldsbme
+        image: goldsbme:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+      restartPolicy: OnFailure
